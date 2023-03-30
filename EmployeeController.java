@@ -55,6 +55,13 @@ public class EmployeeController {
         return new ResponseEntity<List<EmployeeEntity>>(list, new HttpHeaders(), HttpStatus.OK);
     }
     
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
+        throws ResourceNotFoundException {
+        Employee employee = employeeRepository.findById(employeeId)
+          .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
+        return ResponseEntity.ok().body(employee);
+    }
 
 //    Using Request and Response with save and update employee
 
