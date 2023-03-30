@@ -38,6 +38,30 @@ public class Customer {
 
     // Constructor, getter and setter
 }
+    "phoneNumbers":[
+            {
+            "type":"home", "number":"212 555-1234"
+            },
+         {
+            "type":"fax", "number":"212 555-1234"
+         }
+     ],
+     "firstName":"John"
+
+         
+         JSONArray ja = (JSONArray) jo.get("phoneNumbers");
+          
+        // iterating phoneNumbers
+        Iterator itr2 = ja.iterator();
+          
+        while (itr2.hasNext()) 
+        {
+            itr1 = ((Map) itr2.next()).entrySet().iterator();
+            while (itr1.hasNext()) {
+                Map.Entry pair = itr1.next();
+                System.out.println(pair.getKey() + " : " + pair.getValue());
+            }
+        }
     
     
 
