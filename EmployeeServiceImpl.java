@@ -44,6 +44,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
+    
+    public List<EmployeeEntity> getAllEmployees(Integer pageNo, Integer pageSize, String sortBy)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+        Page<EmployeeEntity> pagedResult = repository.findAll(paging);
+
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<EmployeeEntity>();
+        }
+    }
 
 //    Using Request and Response with save and update employee
 
