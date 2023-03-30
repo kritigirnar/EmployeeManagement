@@ -19,6 +19,29 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+    
+    RestTemplate restTemplate;
+
+    public RestConsumer(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    @RequestMapping(value = "/posts")
+    public Post[] getProductList() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+        return restTemplate.exchange("https://jsonplaceholder.typicode.com/posts", HttpMethod.GET, entity, Post[].class).getBody();
+    }
+
+    @RequestMapping(value = "/posts/create")
+    public String createPost(@RequestBody Post post) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<Post> entity = new HttpEntity<Post>(post, httpHeaders);
+        return restTemplate.exchange("https://jsonplaceholder.typicode.com/posts", HttpMethod.POST, entity, String.class).getBody();
+
+    }
 
     @GetMapping
     public List<EmployeeEntity> findAllEmployee() {
