@@ -101,6 +101,47 @@ JSONObject amenitiesObj = amenitiesArray.getJSONObject(0);
 
 // Accessing the entire "ammenities" object
 String amenitiesResponse = amenitiesObj.toString();
+-------
+    import java.util.List;
+import java.util.Map;
 
+public class Amenities {
+    private Map<String, Object> business;
+    private Map<String, Object> first;
+    private Map<String, Object> premiumEconomy;
+    private Map<String, Object> economy;
+
+    public Amenities(Map<String, Object> business, Map<String, Object> first, Map<String, Object> premiumEconomy, Map<String, Object> economy) {
+        this.business = business;
+        this.first = first;
+        this.premiumEconomy = premiumEconomy;
+        this.economy = economy;
+    }
+
+    public Map<String, Object> getBusiness() {
+        return business;
+    }
+
+    public Map<String, Object> getFirst() {
+        return first;
+    }
+
+    public Map<String, Object> getPremiumEconomy() {
+        return premiumEconomy;
+    }
+
+    public Map<String, Object> getEconomy() {
+        return economy;
+    }
+}
+
+    
+    ----
+        
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+// Assuming the JSON object is stored in a String variable called "jsonString"
+ObjectMapper objectMapper = new ObjectMapper();
+Amenities amenities = objectMapper.readValue(jsonString, Amenities.class);
 
 }
