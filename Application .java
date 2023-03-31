@@ -86,5 +86,21 @@ for(Iterator iterator = jsonObject.keySet().iterator(); iterator.hasNext();) {
             System.out.println("-----------");
 
         }
+    --------
+    
+    import org.json.*;
+
+// Assuming the JSON object is stored in a String variable called "jsonString"
+JSONObject jsonObj = new JSONObject(jsonString);
+
+// Accessing the "ammenities" array
+JSONArray amenitiesArray = jsonObj.getJSONArray("ammenities");
+
+// Accessing the first (and only) object in the "ammenities" array
+JSONObject amenitiesObj = amenitiesArray.getJSONObject(0);
+
+// Accessing the entire "ammenities" object
+String amenitiesResponse = amenitiesObj.toString();
+
 
 }
