@@ -1,0 +1,43 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class AmenityMapExample {
+    public static void main(String[] args) {
+        String json = null;
+        try {
+            // read the JSON string from a file
+            json = new String(Files.readAllBytes(Paths.get("amenities.json")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> amenitiesMap = null;
+        try {
+            // convert JSON string to Map object
+            amenitiesMap = objectMapper.readValue(json, Map.class);
+        } catch (JsonParseException | JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        // get the value of the amenities key
+        Object amenitiesObject = amenitiesMap.get("ammenities");
+        if (amenitiesObject instanceof Map) {
+            // if the value of amenities is a Map, print all its key-value pairs
+            Map<String, Object> amenities = (Map<String, Object>) amenitiesObject;
+            for (Map.Entry<String, Object> entry : amenities.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+        } else {
+            System.out.println("Amenities is not a Map");
+        }
+    }
+}
